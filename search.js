@@ -1,10 +1,11 @@
+
 $(document).ready(function(){
 
     $('#username').keyup(function(e){
         let username =e.target.value;
 
         $.ajax({
-            url: 'https://api.github.com/users/'+username,
+            url: 'https://api.github.com/search/users?q=username',
 
             data:{
                 client_id : '960da4e143966c69cf46',
@@ -12,7 +13,7 @@ $(document).ready(function(){
             }
         }).done(function(userData){
             $.ajax({
-                url: 'https://api.github.com/users/'+username,
+                url: 'https://api.github.com/search/users?q=username',
                 // Returns JSON data about repositories
                 data:{
                     client_id : '960da4e143966c69cf46',
@@ -23,19 +24,26 @@ $(document).ready(function(){
             });
 
 
-
-            $('#searchResult').html(`
+            for(var i=0; i<userData.items.length;i++) {
+                var html_element = (`
             <div class="panel panel-default" style="margin-top:10px;">
                 <div class="panel-heading">
-
-                   <a href="${userData.html_url}" target="_blank"> <h4 class='text-danger'>${userData.name}<img class="thumbnail" src="${userData.avatar_url}" alt="Profile Photo" 
+                   <a href="${userData.items[i].html_url}" target="_blank"> 
+                   <h4 class='text-danger'>${userData.items[i].login}
+                   <img class="thumbnail" src="${userData.items[i].avatar_url}" alt="Profile Photo" 
                     style=" max-width:5%; text-align:center;"> </h4></a>
                     </div>
                     </div>
 `);
+                $('#searchResult').append(html_element);
+            }
         });
     });
 
 
 
 });
+
+
+
+

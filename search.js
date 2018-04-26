@@ -11,16 +11,6 @@ $(document).ready(function(){
                 client_secret : '99db2939dba7a24f62a83fa14c45d0f562394e65'
             }
         }).done(function(userData){
-            $.ajax({
-                url: 'https://api.github.com/search/users?q='+username,
-                // Returns JSON data about repositories
-                data:{
-                    client_id : '960da4e143966c69cf46',
-                    client_secret : '99db2939dba7a24f62a83fa14c45d0f562394e65',
-
-                }
-
-            });
 
             $('#searchResult').empty();
             for(var i=0; i<userData.items.length;i++) {
@@ -34,7 +24,19 @@ $(document).ready(function(){
 `;
                 $('#searchResult').append(html_element);
                 var element = $('#searchResult').children().first();
-                element.find("h4").css("background-color", "cornflowerblue");
+                element.find("h4").css("background-color", "#8d94ff");
+
+
+                var $curr = $( ".searchcontainer" );
+                $curr.css( "background", "8d94ff" );
+                $( ".nx" ).click(function() {
+                    $curr = $curr.next();
+                    $( "div" ).css( "background", "" );
+                    $curr.css( "background", "#fff7ae" );
+
+
+
+                });
 
 
 
@@ -45,3 +47,6 @@ $(document).ready(function(){
 
 
 });
+
+
+
